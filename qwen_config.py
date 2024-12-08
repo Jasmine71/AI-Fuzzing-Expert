@@ -1,12 +1,10 @@
 import os
-import pprint
-import urllib.parse
 from qwen_agent.agents import Assistant
 from qwen_agent.tools.base import BaseTool, register_tool
 
-# Step 1: Configure the LLM for the agent.
+# configure the LLM for the agent.
 llm_cfg = {
-    'model': 'Qwen/Qwen2.5-7B-Instruct',
+    'model': 'Qwen/Qwen2.5-0.5B-Instruct',
     'model_server': 'http://localhost:8000/v1',  # Base URL of the model server
     'api_key': 'EMPTY',  # If no authentication is required, leave as 'EMPTY'.
 
@@ -25,7 +23,6 @@ Your responsibilities include:
 2. Generating seed inputs based on the source code analysis.
 3. Guiding the user through setting up and executing a fuzzing process.
 4. Offering advice on how to interpret and address fuzzing results, such as crashes or hangs.
-
 When generating outputs, explain your reasoning clearly and provide actionable steps.'''
 
 # Step 3: List available tools for the agent.
@@ -36,7 +33,7 @@ files = [
     os.path.abspath('./stt_project/target/source_code/a.c'),
     os.path.abspath('./stt_project/target/source_code/b.c'),
     os.path.abspath('./stt_project/target/source_code/c.c')
-] # Add paths to source code files.
+]  # Add paths to source code files.
 
 # Step 5: Create the fuzzing agent.
 bot = Assistant(
@@ -46,26 +43,19 @@ bot = Assistant(
     files=files
 )
 
-# Step 6: Run the agent interactively as a chatbot.
-def run_fuzzing_agent():
-    print("Fuzzing Expert Agent is running...")
-    messages = []  # This stores the chat history.
-    while True:
-        # Get the user's input.
-        query = input('User query: ')
-        
-        # Append user query to the message history.
-        messages.append({'role': 'user', 'content': query})
-        
-        # Run the agent with the messages.
-        print("Agent response:")
-        for response in bot.run(messages=messages):
-            # Print response in a streaming fashion.
-            pprint.pprint(response, indent=2)
-        
-        # Append the bot's response to the message history.
-        messages.extend(response)
+# Define a function to handle queries via the bot.
+def handle_query(fuzzer_selection, target_path, question_type, problem_description, custom_input):
+    messages = []
 
-# Run the agent if this script is executed directly.
-if __name__ == "__main__":
-    run_fuzzing_agent()
+    # Construct the user query based on inputs.
+    if custom_input:
+        query = custom_input
+    else:
+        query = f"Fuzzer: {fuzzer_selection}\nTarget Path: {target_path}\nQuestion Type: {question_type}\nProblem Description: {problem_description}"
+
+    messages.append({'role': 'user', 'content': query})
+
+    # Run the agent and collect the response.
+    responses = bot.run(messages=messages)
+    response_text = "\n".join([response['content'] for response in responses])
+    return response_text
