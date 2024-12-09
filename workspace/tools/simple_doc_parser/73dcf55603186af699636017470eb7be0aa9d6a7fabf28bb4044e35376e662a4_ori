@@ -1,0 +1,75 @@
+[
+  {
+    "page_num": 1,
+    "content": [
+      {
+        "text": "#include <stdio.h>",
+        "token": 5
+      },
+      {
+        "text": "",
+        "token": 0
+      },
+      {
+        "text": "void greet() {",
+        "token": 4
+      },
+      {
+        "text": "    printf(\"Hello from a.c!\\n\");",
+        "token": 10
+      },
+      {
+        "text": "}",
+        "token": 1
+      },
+      {
+        "text": "",
+        "token": 0
+      },
+      {
+        "text": "int add(int x, int y) {",
+        "token": 9
+      },
+      {
+        "text": "    return x + y;",
+        "token": 6
+      },
+      {
+        "text": "}",
+        "token": 1
+      },
+      {
+        "text": "",
+        "token": 0
+      },
+      {
+        "text": "int main() {",
+        "token": 4
+      },
+      {
+        "text": "    greet();",
+        "token": 3
+      },
+      {
+        "text": "    int result = add(3, 4);",
+        "token": 11
+      },
+      {
+        "text": "    printf(\"The result of addition is: %d\\n\", result);",
+        "token": 15
+      },
+      {
+        "text": "    return 0;",
+        "token": 5
+      },
+      {
+        "text": "}",
+        "token": 1
+      },
+      {
+        "text": "",
+        "token": 0
+      }
+    ]
+  }
+]

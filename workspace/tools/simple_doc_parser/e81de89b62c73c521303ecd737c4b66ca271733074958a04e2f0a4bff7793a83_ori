@@ -1,0 +1,63 @@
+[
+  {
+    "page_num": 1,
+    "content": [
+      {
+        "text": "#include <stdio.h>",
+        "token": 5
+      },
+      {
+        "text": "",
+        "token": 0
+      },
+      {
+        "text": "int factorial(int n) {",
+        "token": 6
+      },
+      {
+        "text": "    if (n <= 1) return 1;",
+        "token": 12
+      },
+      {
+        "text": "    return n * factorial(n - 1);",
+        "token": 10
+      },
+      {
+        "text": "}",
+        "token": 1
+      },
+      {
+        "text": "",
+        "token": 0
+      },
+      {
+        "text": "int main() {",
+        "token": 4
+      },
+      {
+        "text": "    printf(\"Calculating factorial in c.c.\\n\");",
+        "token": 12
+      },
+      {
+        "text": "    int num = 5;",
+        "token": 7
+      },
+      {
+        "text": "    printf(\"Factorial of %d is: %d\\n\", num, factorial(num));",
+        "token": 19
+      },
+      {
+        "text": "    return 0;",
+        "token": 5
+      },
+      {
+        "text": "}",
+        "token": 1
+      },
+      {
+        "text": "",
+        "token": 0
+      }
+    ]
+  }
+]

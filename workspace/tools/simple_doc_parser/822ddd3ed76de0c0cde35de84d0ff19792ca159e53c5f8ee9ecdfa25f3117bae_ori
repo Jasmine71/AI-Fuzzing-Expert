@@ -1,0 +1,75 @@
+[
+  {
+    "page_num": 1,
+    "content": [
+      {
+        "text": "#include <stdio.h>",
+        "token": 5
+      },
+      {
+        "text": "",
+        "token": 0
+      },
+      {
+        "text": "void display_message() {",
+        "token": 5
+      },
+      {
+        "text": "    printf(\"This is a message from b.c.\\n\");",
+        "token": 13
+      },
+      {
+        "text": "}",
+        "token": 1
+      },
+      {
+        "text": "",
+        "token": 0
+      },
+      {
+        "text": "int multiply(int x, int y) {",
+        "token": 9
+      },
+      {
+        "text": "    return x * y;",
+        "token": 6
+      },
+      {
+        "text": "}",
+        "token": 1
+      },
+      {
+        "text": "",
+        "token": 0
+      },
+      {
+        "text": "int main() {",
+        "token": 4
+      },
+      {
+        "text": "    display_message();",
+        "token": 4
+      },
+      {
+        "text": "    int product = multiply(5, 6);",
+        "token": 11
+      },
+      {
+        "text": "    printf(\"The result of multiplication is: %d\\n\", product);",
+        "token": 15
+      },
+      {
+        "text": "    return 0;",
+        "token": 5
+      },
+      {
+        "text": "}",
+        "token": 1
+      },
+      {
+        "text": "",
+        "token": 0
+      }
+    ]
+  }
+]

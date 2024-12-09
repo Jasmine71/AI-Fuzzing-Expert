@@ -23,22 +23,10 @@ with gr.Blocks() as fuzzing_interface:
                 label="Fuzzer Selection",
                 interactive=True
             )
-            target_path = gr.Textbox(
-                placeholder="Path to target program...",
-                label="Target Path"
-            )
-            question_type = gr.Dropdown(
-                choices=[
-                    "Setup",
-                    "Start and Stop",
-                    "Parameters",
-                    "How to get feedback",
-                    "Find crashes",
-                    "Other"
-                ],
-                value="Setup",
-                label="Type of Questions",
-                interactive=True
+            source_code = gr.Textbox(
+                placeholder="Upload target source code here...",
+                label="Script",
+                lines=8,
             )
             problem_description = gr.Textbox(
                 placeholder="Detailed description of your problem...",
@@ -50,49 +38,31 @@ with gr.Blocks() as fuzzing_interface:
                 submit_button = gr.Button("Submit", elem_id="submit-button")
                 clear_button = gr.Button("Empty")
 
-    # Custom Input Box Section (below the Display Window, with buttons at the end of the text box)
-    with gr.Column():
-        custom_input = gr.Textbox(
-            placeholder="Ask a custom question here...",
-            label="Custom Input Box",
-            lines=6,
-            scale=3,  # Make it wider
-        )
-        # Submit and Empty buttons horizontally aligned with the input box
-        with gr.Row():
-            custom_submit_button = gr.Button("Submit", elem_id="custom-submit-button", scale=1)
-            custom_clear_button = gr.Button("Empty", scale=1)
+    # Define the generator for streaming responses.
+    def stream_responses(fuzzer_selection, source_code, problem_description):
+        messages = []
+        for token in handle_query(fuzzer_selection, source_code, problem_description, messages):
+            yield token
 
-        new_chat_button = gr.Button("New Chat", elem_id="new-chat-button")
+    def clear_inputs():
+        return "", "", ""
 
-    # Define button interactions.
-    def on_submit(fuzzer_selection, target_path, question_type, problem_description, custom_input):
-        return handle_query(fuzzer_selection, target_path, question_type, problem_description, custom_input)
-
+    # Set up Gradio for streaming.
     submit_button.click(
-        on_submit,
-        inputs=[fuzzer_selection, target_path, question_type, problem_description, custom_input],
-        outputs=[display_window]
+        fn=stream_responses,
+        inputs=[fuzzer_selection, source_code, problem_description],
+        outputs=display_window
     )
-    custom_submit_button.click(
-        on_submit,
-        inputs=[fuzzer_selection, target_path, question_type, problem_description, custom_input],
-        outputs=[display_window]
+    
+    clear_button.click(
+        fn=clear_inputs,
+        inputs=[],
+        outputs=[fuzzer_selection, source_code, problem_description]
     )
 
     # Add CSS styling for button colors
     fuzzing_interface.css = """
-    #new-chat-button {
-        background-color: red;
-        color: white;
-        font-weight: bold;
-    }
     #submit-button {
-        background-color: green;
-        color: white;
-        font-weight: bold;
-    }
-    #custom-submit-button {
         background-color: green;
         color: white;
         font-weight: bold;
@@ -101,4 +71,4 @@ with gr.Blocks() as fuzzing_interface:
 
 # Launch the Gradio interface
 if __name__ == "__main__":
-    fuzzing_interface.launch()
+    fuzzing_interface.launch(share=True)
