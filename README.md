@@ -34,6 +34,11 @@
 - gradio: `pip install gradio`
 - agent supports: `pip install -U "qwen-agent[gui,rag,code_interpreter,python_executor]"`
 
-### Start the interface with `python interface.py`
-in `model_agent.py`, comment/uncomment the following blocks to specify fine-tuned/not fine-tuned models
-- ![model selection](intro.png)
+### Model deployment and interface running
+1. in `model_agent.py`, comment/uncomment the following blocks to specify fine-tuned/not fine-tuned models
+    ![model selection](intro.png)
+2. Model selection
+    - deploy model with fine-tuned model: `vllm serve Qwen2.5-1.5B-Instruct-lora --dtype=half`
+    - deploy model with not fine-tuned remote model: `vllm serve Qwen/Qwen2.5-1.5B-Instruct --dtype=half`
+3. Interface
+    - start the interface with `python interface.py`
