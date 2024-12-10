@@ -7,7 +7,7 @@ from qwen_agent.tools.base import BaseTool, register_tool
 
 #configure the LLM for the agent.
 llm_cfg = {
-    #'model': 'Qwen/Qwen2.5-1.5B-Instruct', # not fine-tuned remote model
+    # 'model': 'Qwen/Qwen2.5-1.5B-Instruct', # not fine-tuned remote model
     'model': 'Qwen2.5-1.5B-Instruct-lora', # local fine-tuned model
     'model_server': 'http://localhost:8000/v1',  #base URL of the model server
     'api_key': 'EMPTY',  #if no authentication is required, leave as 'EMPTY'.

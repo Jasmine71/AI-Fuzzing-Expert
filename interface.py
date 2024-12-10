@@ -1,5 +1,5 @@
 import gradio as gr
-from model_config import handle_query
+from model_agent import handle_query
 
 # Define the Gradio interface.
 with gr.Blocks() as fuzzing_interface:
